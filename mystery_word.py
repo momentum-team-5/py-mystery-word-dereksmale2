@@ -20,6 +20,7 @@ def play_game(word_to_guess):
     letters_guessed = set()
     guesses_used = 0
 
+    print(word_to_guess)
     print(f"Your word has {len(word_to_guess)} letters.")
 
     while guesses_used < NUM_TURNS:
@@ -51,21 +52,36 @@ def play_game(word_to_guess):
 # Read in all content as a string
 # Use .split() method to break the content into newline characters
 def read_words(filename):
-    pass
+    f = open(filename, 'r+')
+    words = [word for word in f.readlines()]
+    f.close()
+    return words
 
 # Check value of desired difficulty
 def filtered_by_difficulty(words, desired_difficulty):
-    pass
+    print(words)
+    easy_words = [word for word in words if len(word) >= 4 and len(word) <= 6]
+    normal_words = [word for word in words if len(word) >= 6 and len(word) <= 8]
+    hard_words = [word for word in words if len(word) > 8]
+
+    if desired_difficulty == "easy":
+        return easy_words
+
+    if desired_diffulty == "normal":
+        return normal_words
+
+    if desired_difficulty == "hard":
+        return hard_words
 
 # Read all words from words.txt
-def get_user_to_guess(desired_difficulty):
+def get_word_to_guess(desired_difficulty):
     words = read_words(WORDS_FILE)
-    filtered = filter_by_difficulty(words, desired_difficulty)
+    filtered = filtered_by_difficulty(words, desired_difficulty)
     return choice(filtered)
 
 # Setup an input validation
 def get_user_difficulty():
-    pass
+    return "easy"
 
 # Get desired user difficulty
 # Get a word for the player to guess
@@ -88,7 +104,7 @@ def run_game_loop():
 
 # Run the game loop
 def main():
-    print("Welcome to Mystery Word")
+    print("Welcome to Mystery Word!")
     run_game_loop()
 
 if __name__ == "__main__":
