@@ -6,14 +6,12 @@ WORDS_FILE = "words.txt"
 
 # Create an output string by assigning from word_to_guess
 def show_guessed_so_far(word_to_guess, letters_to_guess, letters_guessed):
-    hidden_word = " ".join(word_to_guess)
+    hidden_word = "_ ".join(word_to_guess)
 
     for letter in letters_to_guess:
         if letter not in letters_guessed:
             hidden_word = hidden_word.replace(letter, "_")
-        else:
-            continue
-        return hidden_word
+    print(hidden_word)
 
 def get_guess(letters_guessed):
     guess = input("Guess a letter: ")
@@ -45,7 +43,7 @@ def play_game(word_to_guess):
     print(f"Your word has {len(word_to_guess)} letters.")
 
     while guesses_used < NUM_TURNS:
-        print(show_guessed_so_far(word_to_guess, letters_to_guess, letters_guessed))
+        show_guessed_so_far(word_to_guess, letters_to_guess, letters_guessed)
 
         new_guess = get_guess(letters_guessed)
         letters_guessed.add(new_guess)
@@ -96,8 +94,8 @@ def filtered_by_difficulty(words, desired_difficulty):
 # Read all words from words.txt
 def get_word_to_guess(desired_difficulty):
     words = read_words(WORDS_FILE)
-    filtered = filtered_by_difficulty(words, desired_difficulty)
-    return choice(filtered)
+    filtered_words = filtered_by_difficulty(words, desired_difficulty)
+    return choice(filtered_words)
 
 # Setup an input validation
 def get_user_difficulty():
